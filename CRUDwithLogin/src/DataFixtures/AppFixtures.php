@@ -14,35 +14,39 @@ class AppFixtures extends Fixture
 
 {
 
-    private $passwordEncoder;
+   private $passwordEncoder;
 
+   
 
+   public function __construct(UserPasswordEncoderInterface $passwordEncoder)
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+   {
 
-    {
+       $this->passwordEncoder = $passwordEncoder;
 
-        $this->passwordEncoder = $passwordEncoder;
-    }
+   }
 
-    public function load(ObjectManager $manager)
+   public function load(ObjectManager $manager)
 
-    {
+   {
 
-        $user = new User();
+       $user = new User();
 
-        $user->setPassword($this->passwordEncoder->encodePassword(
+       $user->setPassword($this->passwordEncoder->encodePassword(
 
             $user,
 
             '123123'
 
-        ));
+       ));
 
-        $user->setEmail("user@gmail.com");
+       $user->setEmail("user@gmail.com");
 
-        $manager->persist($user);
+       $manager->persist($user);
 
-        $manager->flush();
-    }
+       $manager->flush();
+
+   }
+
 }
+
